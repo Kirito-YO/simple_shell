@@ -10,5 +10,7 @@
 #include <sys/wait.h>
 
 void prompt(void);
+void print_env(void);
+void exe_cmd_args(char *cmd);
 
 #endif

@@ -6,38 +6,42 @@
  */
 int main(void)
 {
-	pid_t pid;
-	char cmd[100];
-	int inter = isatty(STDIN_FILENO); /*for interactive mode*/
+	char *cmd = NULL;
+	size_t cmd_size = 0;
+	ssize_t read;
+	int inter = isatty(STDIN_FILENO);
 
 	while (1)
 	{
-		if (inter)
+		if (inter) /* check intractive mode */
 			prompt();
-		if (fgets(cmd, sizeof(cmd), stdin) == NULL)
-		{
-			if (inter == 1)
-				printf("\n");
-			break;
-		}
 
-		cmd[strcspn(cmd, "\n")] = '\0';
+		read = getline(&cmd, &cmd_size, stdin);
+        	if (read == -1)
+        	{
+            	if (inter)
+                	printf("\n");
+            	free(cmd);
+            	break;
+        	}
 
-		if (strlen(cmd) == 0)
-			continue;
+        	cmd[read - 1] = '\0'; /* replace the newline (pressing the Enter key) */
 
-		pid = fork();
+        	if (strlen(cmd) == 0)
+            		continue;
 
-		if (pid == -1)
-			perror("fork");
-		else if (pid == 0)
-		{
-			execlp(cmd, cmd, NULL);
-			perror(cmd);
-			exit(1);
-		}
-		else
-			waitpid(pid, NULL, 0);
+        	if (strcmp(cmd, "exit") == 0)
+        	{
+        	    break;
+        	}
+
+		if(strcmp(cmd, "env") == 0)
+	        {
+	            print_env();
+	            free(cmd);
+	        }
+
+	        exe_cmd_args(cmd);
 	}
-	return (0);
+	return 0;
 }
