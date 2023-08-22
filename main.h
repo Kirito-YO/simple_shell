@@ -9,6 +9,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+extern char **environ;
+
 void prompt(void);
+void print_env(void);
+void exe_cmd_args(char *cmd);
 
 #endif
