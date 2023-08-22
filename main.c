@@ -33,21 +33,6 @@ int main(void)
 		if (strcmp(cmd, "exit") == 0)
 			break;
 
-		if (pid == -1)
-			perror("fork");
-		else if (pid == 0)
-		{
-			args[0] = cmd;
-			args[1] = NULL;
-
-			char *envp[] = { NULL };
-
-			execve(cmd, arg, envp);
-			perror(cmd);
-			exit(1);
-		}
-		else
-			waitpid(pid, NULL, 0);
 		if (strcmp(cmd, "env") == 0)
 			print_env();
 
