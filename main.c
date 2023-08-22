@@ -33,7 +33,6 @@ int main(void)
 		if (strcmp(cmd, "exit") == 0)
 			break;
 
-<<<<<<< HEAD
 		if (pid == -1)
 			perror("fork");
 		else if (pid == 0)
@@ -49,12 +48,10 @@ int main(void)
 		}
 		else
 			waitpid(pid, NULL, 0);
-=======
 		if (strcmp(cmd, "env") == 0)
 			print_env();
 
 		exe_cmd_args(cmd);
->>>>>>> f5f70969e16e04675e7ae326ac5f7d1e0a0476ae
 	}
 	return (0);
 }
