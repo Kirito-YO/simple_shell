@@ -7,8 +7,8 @@
 int main(void)
 {
 	char *cmd = NULL;
-	size_t cmd_size = 0;
-	ssize_t read;
+	size_t cmd_taille = 0;
+	ssize_t lire;
 	int inter = isatty(STDIN_FILENO);
 
 	while (1)
@@ -16,8 +16,8 @@ int main(void)
 		if (inter) /* check intractive mode */
 			prompt();
 
-		read = getline(&cmd, &cmd_size, stdin);
-		if (read == -1)
+		lire = getline(&cmd, &cmd_taille, stdin);
+		if (lire == -1)
 		{
 			if (inter)
 				printf("\n");
@@ -25,7 +25,7 @@ int main(void)
 			break;
 		}
 
-		cmd[read - 1] = '\0'; /* replace the newline (pressing the Enter key) */
+		cmd[lire - 1] = '\0'; /* replace the newline (pressing the Enter key) */
 
 		if (strlen(cmd) == 0)
 			continue;
