@@ -32,7 +32,12 @@ int main(void)
 			perror("fork");
 		else if (pid == 0)
 		{
-			execlp(cmd, cmd, NULL);
+			args[0] = cmd;
+			args[1] = NULL;
+
+			char *envp[] = { NULL };
+
+			execve(cmd, arg, envp);
 			perror(cmd);
 			exit(1);
 		}
