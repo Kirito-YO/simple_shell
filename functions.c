@@ -40,7 +40,12 @@ void exe_cmd_args(char *cmd)
 		perror("fork");
 	else if (pid == 0)
 	{
-		execvp(args[0], args);
+		args[0] = cmd;
+		args[1] = NULL;
+		
+		char *envp[] = { NULL };
+
+		execve(cmd, args, envp);
 		perror(args[0]);
 		exit(1);
 	}
