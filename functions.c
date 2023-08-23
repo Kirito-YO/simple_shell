@@ -25,7 +25,7 @@ void exe_cmd_args(char *cmd)
 	int arg_compte = 0;
 	pid_t pid;
 	char *cp = strtok(cmd, " ");
-	char *envp[] = {"PATH=/bin:/usr/bin", NULL};
+	char *envp[] = {NULL};
 
 	while (cp != NULL)
 	{
