@@ -22,7 +22,6 @@ void prompt(void)
 void exe_cmd_args(char *cmd)
 {
 	char *args[100];
-	char *args[] = { cmd, NULL };
 	int arg_compte = 0;
 	pid_t pid;
 	char *cp = strtok(cmd, " ");
@@ -41,6 +40,8 @@ void exe_cmd_args(char *cmd)
 		perror("fork");
 	else if (pid == 0)
 	{
+		char *args[] = { cmd, NULL };
+
 		execve(cmd, args, NULL);
 		perror(args[0]);
 		exit(1);
