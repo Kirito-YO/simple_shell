@@ -41,6 +41,7 @@ void exe_cmd_args(char *cmd)
 	else if (pid == 0)
 	{
 		char *args[] = { cmd, NULL };
+		
 		execve(cmd, args, NULL);
 		perror(args[0]);
 		exit(1);
