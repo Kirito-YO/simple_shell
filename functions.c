@@ -40,14 +40,11 @@ void exe_cmd_args(char *cmd)
 		perror("fork");
 	else if (pid == 0)
 	{
-		char *envp[] = {
-		"PATH=/bin:/usr/bin",
-		NULL
-		};
+		char *envp[] = {"PATH=/bin:/usr/bin", NULL};
 
-        execve(args[0], args, envp); // Using execve with custom environment
-        perror(args[0]);
-        exit(1);
+		execve(args[0], args, envp); // Using execve with custom environment
+		perror(args[0]);
+		exit(1);
 	}
 	else
 		waitpid(pid, NULL, 0);
