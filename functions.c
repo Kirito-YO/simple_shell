@@ -26,14 +26,21 @@ void exe_cmd_args(char *cmd)
 	pid_t pid;
 	char *cp = strtok(cmd, " ");
 
-	pid_t pid = fork();
+	while (cp != NULL)
+	{
+		args[arg_compte] = cp;
+		arg_compte++;
+		cp = strtok(NULL, " ");
+	}
+	args[arg_compte] = NULL;
+
+	pid = fork();
+
 	if (pid == -1)
-        perror("fork");
+		perror("fork");
 	else if (pid == 0)
 	{
-		char *args[] = { cmd, NULL };
-
-		execve(cmd, args, NULL);
+		execvp(args[0], args);
 		perror(args[0]);
 		exit(1);
 	}
