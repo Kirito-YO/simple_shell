@@ -41,7 +41,7 @@ void exe_cmd_args(char *cmd)
 		perror("fork");
 	else if (pid == 0)
 	{
-		execve(args[0], args, envp); // Using execve with custom environment
+		execve(args[0], args, envp);
 		perror(args[0]);
 		exit(1);
 	}
